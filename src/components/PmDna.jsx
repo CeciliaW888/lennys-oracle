@@ -150,7 +150,7 @@ function RadarChart({ data, size = 320 }) {
 
 function getPmArchetype(data) {
   const maxVal = Math.max(...Object.values(data))
-  if (maxVal === 0) return { name: 'Seeking Wisdom', description: 'Start exploring to discover your PM DNA' }
+  if (maxVal === 0) return { name: 'Seeking Wisdom', description: 'Draw your daily cards and consult the Oracle to reveal your PM DNA' }
   
   const sorted = Object.entries(data).sort(([,a], [,b]) => b - a)
   const top = sorted[0][0]
@@ -209,7 +209,7 @@ export default function PmDna({ userProfile }) {
           </h2>
           <p className="text-oracle-text-dim text-sm">
             {totalExplorations > 0 
-              ? `Based on ${totalExplorations} explorations across ${userProfile.draws.length} readings`
+              ? `Based on ${totalExplorations} exploration${totalExplorations === 1 ? '' : 's'} across ${userProfile.draws.length} reading${userProfile.draws.length === 1 ? '' : 's'}`
               : 'Draw your daily cards and ask the Oracle to build your profile'
             }
           </p>
@@ -243,10 +243,27 @@ export default function PmDna({ userProfile }) {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="glass rounded-xl p-6 mb-8"
+          className="glass rounded-xl p-6 mb-8 relative"
           ref={canvasRef}
         >
           <RadarChart data={data} size={320} />
+          {totalExplorations === 0 && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-oracle-bg/60 rounded-xl backdrop-blur-sm">
+              <motion.div
+                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="text-4xl mb-4"
+              >
+                ✦
+              </motion.div>
+              <p className="text-oracle-text-dim text-sm text-center px-6">
+                Start exploring to discover your PM DNA
+              </p>
+              <p className="text-oracle-text-muted text-xs mt-2 text-center px-6">
+                Flip your daily cards and ask the Oracle questions
+              </p>
+            </div>
+          )}
         </motion.div>
 
         {/* Category breakdown */}

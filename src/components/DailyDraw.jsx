@@ -33,12 +33,47 @@ function getDailyCards() {
   return shuffled.slice(0, 3)
 }
 
+function ParticleBurst({ color }) {
+  const particles = Array.from({ length: 12 }, (_, i) => {
+    const angle = (i / 12) * 360
+    const distance = 60 + Math.random() * 40
+    const x = Math.cos((angle * Math.PI) / 180) * distance
+    const y = Math.sin((angle * Math.PI) / 180) * distance
+    return { x, y, delay: Math.random() * 0.15, size: 2 + Math.random() * 3 }
+  })
+
+  return (
+    <div className="absolute inset-0 pointer-events-none z-50 flex items-center justify-center">
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+          animate={{ x: p.x, y: p.y, opacity: 0, scale: 0 }}
+          transition={{ duration: 0.7, delay: p.delay, ease: 'easeOut' }}
+          className="absolute rounded-full"
+          style={{ width: p.size, height: p.size, background: color }}
+        />
+      ))}
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0.6 }}
+        animate={{ scale: 2.5, opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute w-16 h-16 rounded-full"
+        style={{ background: `radial-gradient(circle, ${color}40, transparent)` }}
+      />
+    </div>
+  )
+}
+
 function TarotCard({ card, index, isFlipped, onFlip, onTrack }) {
   const cardRef = useRef(null)
+  const [showParticles, setShowParticles] = useState(false)
 
   const handleFlip = () => {
     if (!isFlipped) {
       onFlip(index)
+      setShowParticles(true)
+      setTimeout(() => setShowParticles(false), 800)
       if (card.category) onTrack(card.category)
     }
   }
@@ -51,11 +86,16 @@ function TarotCard({ card, index, isFlipped, onFlip, onTrack }) {
       initial={{ y: 60, opacity: 0, rotateZ: (index - 1) * 3 }}
       animate={{ y: 0, opacity: 1, rotateZ: 0 }}
       transition={{ delay: 0.3 + index * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full max-w-[260px] aspect-[2/3] perspective-1000 cursor-pointer group"
+      className="w-full max-w-[260px] aspect-[2/3] cursor-pointer group"
+      style={{ perspective: '1000px' }}
       onClick={handleFlip}
       ref={cardRef}
     >
       <div className={`card-inner w-full h-full relative ${isFlipped ? 'flipped' : ''}`}>
+        {/* Particle burst on flip */}
+        <AnimatePresence>
+          {showParticles && <ParticleBurst color={catColor} />}
+        </AnimatePresence>
         {/* Card Back */}
         <div className="card-front absolute inset-0 rounded-2xl overflow-hidden foil-effect">
           <div 
