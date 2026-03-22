@@ -47,8 +47,13 @@ export default async function handler(req, res) {
 
   try {
     const { question, cardContext, episodeContext } = req.body
+    
+    if (!question) {
+      return res.status(400).json({ error: 'Question is required' })
+    }
 
-    const genAI = new GoogleGenerativeAI(apiKey)
+    const cleanKey = apiKey.trim()
+    const genAI = new GoogleGenerativeAI(cleanKey)
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.0-flash',
       systemInstruction: SYSTEM_PROMPT,
@@ -102,7 +107,7 @@ Provide a thoughtful answer drawing on the podcast wisdom above. Reference speci
 
     return res.status(200).json({ answer, sources, categories })
   } catch (err) {
-    console.error('Oracle API error:', err)
-    return res.status(500).json({ error: 'Failed to generate response' })
+    console.error('Oracle API error:', err.message || err)
+    return res.status(500).json({ error: 'Failed to generate response', detail: err.message })
   }
 }
