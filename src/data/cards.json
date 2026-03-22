@@ -1,0 +1,502 @@
+[
+  {
+    "id": "rice-prioritization",
+    "framework": "RICE Prioritization",
+    "description": "Reach × Impact × Confidence ÷ Effort",
+    "quote": "Step three is to connect every bit of work back to impact. So this is when we get to the prioritization piece, right.",
+    "guest": "Matt LeMay",
+    "episodeSlug": "matt-lemay",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ts9ZvlkeWGs",
+    "category": "Strategy"
+  },
+  {
+    "id": "jobs-to-be-done",
+    "framework": "Jobs to Be Done",
+    "description": "Customers hire products to make progress in their lives",
+    "quote": "So I think the question that leads to is, what is a sign that you should start to hire your first salesperson?",
+    "guest": "Jason M Lemkin",
+    "episodeSlug": "jason-m-lemkin",
+    "youtubeUrl": "https://www.youtube.com/watch?v=I-R1bc1rlFs",
+    "category": "Strategy"
+  },
+  {
+    "id": "product-market-fit",
+    "framework": "Product-Market Fit",
+    "description": "The degree to which a product satisfies strong market demand",
+    "quote": "title: A framework for finding product-market fit | Todd Jackson (First Round Capital)",
+    "guest": "Todd Jackson",
+    "episodeSlug": "todd-jackson",
+    "youtubeUrl": "https://www.youtube.com/watch?v=yc1Uwhfxacs",
+    "category": "Growth"
+  },
+  {
+    "id": "north-star-metric",
+    "framework": "North Star Metric",
+    "description": "The single metric that best captures the core value your product delivers",
+    "quote": "That is an awesome story. How long did that process take and any advice for folks that might be going through a similar journey of maybe we should rethink our north star metric not and not be revenue? Any advice there?",
+    "guest": "Lauryn Isford",
+    "episodeSlug": "lauryn-isford",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dLku0AiGPVA",
+    "category": "Data"
+  },
+  {
+    "id": "growth-loops",
+    "framework": "Growth Loops",
+    "description": "Self-reinforcing systems where output becomes input for new growth",
+    "quote": "Coming back to the framework, which layer do you find most often is the one founders maybe are under-investing in/maybe the most important to focus on if you had to pick one of these, or is it super dependent on your situation?",
+    "guest": "Sarah Tavel",
+    "episodeSlug": "sarah-tavel",
+    "youtubeUrl": "https://www.youtube.com/watch?v=H9g4pzcz6Tk",
+    "category": "Growth"
+  },
+  {
+    "id": "working-backwards",
+    "framework": "Working Backwards",
+    "description": "Start from the customer experience and work backwards to the technology",
+    "quote": "title: Unpacking Amazon’s unique ways of working | Bill Carr (author of Working Backwards)",
+    "guest": "Bill Carr",
+    "episodeSlug": "bill-carr",
+    "youtubeUrl": "https://www.youtube.com/watch?v=S9WHQa_AJQo",
+    "category": "Strategy"
+  },
+  {
+    "id": "opportunity-solution-tree",
+    "framework": "Opportunity Solution Tree",
+    "description": "Visual tool connecting outcomes to opportunities to solutions to experiments",
+    "quote": "Teresa Torres is a speaker, a teacher, a consultant, a product coach, and also the author of Continuous Discovery Habits, which is the number one most recommended book in my newsletter Slack community.",
+    "guest": "Teresa Torres",
+    "episodeSlug": "teresa-torres",
+    "youtubeUrl": "https://www.youtube.com/watch?v=9RFaz9ZBXpk",
+    "category": "Design"
+  },
+  {
+    "id": "ice-scoring",
+    "framework": "ICE Scoring",
+    "description": "Impact × Confidence × Ease for quick prioritization",
+    "quote": "Absolutely. Yeah. I mean, it's the most common resume advice I see, is show the number, show the impact, say what you did.",
+    "guest": "Matt LeMay",
+    "episodeSlug": "matt-lemay",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ts9ZvlkeWGs",
+    "category": "Strategy"
+  },
+  {
+    "id": "okrs",
+    "framework": "OKRs",
+    "description": "Objectives and Key Results — ambitious goals with measurable outcomes",
+    "quote": "One final question around the actual OKR document. What do you find are the most one or two common mistakes people make when writing out the objective or the key result in deciding on what to go with?",
+    "guest": "Christina Wodtke",
+    "episodeSlug": "christina-wodtke",
+    "youtubeUrl": "https://www.youtube.com/watch?v=kvkL18Ue0dE",
+    "category": "Leadership"
+  },
+  {
+    "id": "design-thinking",
+    "framework": "Design Thinking",
+    "description": "Empathize → Define → Ideate → Prototype → Test",
+    "quote": "Now, if you're watching on YouTube and you see this prototype, you might think, \"Boy, that marketing page and the demo itself, pretty bare bones. Not the most polished-looking. This doesn't look super compelling.\"",
+    "guest": "Jake Knapp + John Zeratsky 2.0",
+    "episodeSlug": "jake-knapp-john-zeratsky-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=cuce7zvOFHY",
+    "category": "Design"
+  },
+  {
+    "id": "lean-startup",
+    "framework": "Lean Startup",
+    "description": "Build → Measure → Learn cycle to validate assumptions quickly",
+    "quote": "Along those same lines, is there a misconception of Lean Startup or any of the other things you put out that just really frustrates you, that just is a recurring misconception that people just continue to get wrong?",
+    "guest": "Eric Ries",
+    "episodeSlug": "eric-ries",
+    "youtubeUrl": "https://www.youtube.com/watch?v=xzebbzIntFc",
+    "category": "Growth"
+  },
+  {
+    "id": "pirate-metrics",
+    "framework": "Pirate Metrics (AARRR)",
+    "description": "Acquisition → Activation → Retention → Revenue → Referral",
+    "quote": "Acquisition, which is top of funnel, do you want to double down and invest there first, or activation, which is help people see the value more quickly?",
+    "guest": "Hila Qu",
+    "episodeSlug": "hila-qu",
+    "youtubeUrl": "https://www.youtube.com/watch?v=7l1fIxk7SnA",
+    "category": "Growth"
+  },
+  {
+    "id": "kano-model",
+    "framework": "Kano Model",
+    "description": "Classify features as Must-be, Performance, or Delight",
+    "quote": "Yeah, it's a really great question. And so, I think there's a couple different things that need to be unpacked here. Paid acquisition or performance marketing-",
+    "guest": "Jonathan Becker",
+    "episodeSlug": "jonathan-becker",
+    "youtubeUrl": "https://www.youtube.com/watch?v=rG4zxf0CAv0",
+    "category": "Design"
+  },
+  {
+    "id": "user-story-mapping",
+    "framework": "User Story Mapping",
+    "description": "Arrange user stories into a useful model for understanding system functionality",
+    "quote": "That's a really good explanation. There's a piece of what does the market want and let me deliver it, and then there's a piece of how is my brain working?",
+    "guest": "John Cutler",
+    "episodeSlug": "john-cutler",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Y4PdUItyXUk",
+    "category": "Design"
+  },
+  {
+    "id": "cohort-analysis",
+    "framework": "Cohort Analysis",
+    "description": "Group users by shared characteristics to track behavior over time",
+    "quote": "So it's interesting. Most people use cohort retention curves. You're using cohort because you don't look at retention. You're looking at for GMV over time. So that's really interesting.",
+    "guest": "Archie Abrams",
+    "episodeSlug": "archie-abrams",
+    "youtubeUrl": "https://www.youtube.com/watch?v=LpbBzmXrzEY",
+    "category": "Data"
+  },
+  {
+    "id": "network-effects",
+    "framework": "Network Effects",
+    "description": "Product becomes more valuable as more people use it",
+    "quote": "I appreciate that. I mean I think there's a few folks in this community who've worked with a bunch of marketplace, and you start to see the same topics over and over. So it's really fun to riff with that group on these topics.",
+    "guest": "Dan Hockenmaier",
+    "episodeSlug": "dan-hockenmaier",
+    "youtubeUrl": "https://www.youtube.com/watch?v=AlTQ6O2qooI",
+    "category": "Growth"
+  },
+  {
+    "id": "strategic-narrative",
+    "framework": "Strategic Narrative",
+    "description": "Frame your company's story as a movement from old game to new game",
+    "quote": "title: The power of strategic narrative | Andy Raskin",
+    "guest": "Andy Raskin",
+    "episodeSlug": "andy-raskin",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dkVJnaxDlXE",
+    "category": "Leadership"
+  },
+  {
+    "id": "disagree-and-commit",
+    "framework": "Disagree and Commit",
+    "description": "Voice disagreement, then fully commit to the decision once made",
+    "quote": "Thank you Prime. What is a favorite product you've recently discovered that you really like, maybe that you bought on Amazon, maybe not.",
+    "guest": "Bill Carr",
+    "episodeSlug": "bill-carr",
+    "youtubeUrl": "https://www.youtube.com/watch?v=S9WHQa_AJQo",
+    "category": "Leadership"
+  },
+  {
+    "id": "pre-mortem",
+    "framework": "Pre-Mortem",
+    "description": "Imagine the project has failed — what went wrong?",
+    "quote": "So a pre-mortem, it's great only if you set up kill criteria. Commit to actions that you're going to take if you see those signals.",
+    "guest": "Annie Duke",
+    "episodeSlug": "annie-duke",
+    "youtubeUrl": "https://www.youtube.com/watch?v=svQMODvIGAE",
+    "category": "Strategy"
+  },
+  {
+    "id": "activation-metric",
+    "framework": "Activation Metric",
+    "description": "The moment a user first experiences your product's core value",
+    "quote": "I would say that the guided onboarding wizard which is the immersive wizard that helps you figure out how to get started was the most impactful thing we did.",
+    "guest": "Lauryn Isford",
+    "episodeSlug": "lauryn-isford",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dLku0AiGPVA",
+    "category": "Growth"
+  },
+  {
+    "id": "viral-coefficient",
+    "framework": "Viral Coefficient",
+    "description": "Average number of new users each existing user generates",
+    "quote": "I love that just as a framework, is how do... We need to blow our users' socks off. And again, it just comes back to how you can get people to want to share this product, and drive word of mouth, blow their socks off.",
+    "guest": "Nilan Peiris",
+    "episodeSlug": "nilan-peiris",
+    "youtubeUrl": "https://www.youtube.com/watch?v=xZifSLGOrrw",
+    "category": "Growth"
+  },
+  {
+    "id": "explore-exploit",
+    "framework": "Explore vs Exploit",
+    "description": "Balance trying new things with optimizing what works",
+    "quote": "Well, it connects to your explore and exploit methodology. Just find or explore where things are happening and then try to exploit in a nice positive way.",
+    "guest": "Albert Cheng",
+    "episodeSlug": "albert-cheng",
+    "youtubeUrl": "https://www.youtube.com/watch?v=2BKmNmnEj9w",
+    "category": "Strategy"
+  },
+  {
+    "id": "founder-mode",
+    "framework": "Founder Mode",
+    "description": "Stay deeply involved in product details rather than purely delegating",
+    "quote": "title: Becoming more strategic, navigating difficult colleagues, founder mode, more",
+    "guest": "Anneka Gupta",
+    "episodeSlug": "anneka-gupta",
+    "youtubeUrl": "https://www.youtube.com/watch?v=E3dUveqt9Bw",
+    "category": "Leadership"
+  },
+  {
+    "id": "category-creation",
+    "framework": "Category Creation",
+    "description": "Don't compete in existing categories — create and own a new one",
+    "quote": "title: How to nail your product positioning | April Dunford (Obviously Awesome)",
+    "guest": "April Dunford 2.0",
+    "episodeSlug": "april-dunford-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=hdjlCLb9Hl8",
+    "category": "Strategy"
+  },
+  {
+    "id": "continuous-discovery",
+    "framework": "Continuous Discovery",
+    "description": "Weekly touchpoints with customers to inform product decisions",
+    "quote": "Teresa Torres is a speaker, a teacher, a consultant, a product coach, and also the author of Continuous Discovery Habits, which is the number one most recommended book in my newsletter Slack community.",
+    "guest": "Teresa Torres",
+    "episodeSlug": "teresa-torres",
+    "youtubeUrl": "https://www.youtube.com/watch?v=9RFaz9ZBXpk",
+    "category": "Design"
+  },
+  {
+    "id": "input-output-metrics",
+    "framework": "Input vs Output Metrics",
+    "description": "Focus on controllable inputs that drive desired outputs",
+    "quote": "Thank you Prime. What is a favorite product you've recently discovered that you really like, maybe that you bought on Amazon, maybe not.",
+    "guest": "Bill Carr",
+    "episodeSlug": "bill-carr",
+    "youtubeUrl": "https://www.youtube.com/watch?v=S9WHQa_AJQo",
+    "category": "Data"
+  },
+  {
+    "id": "product-led-growth",
+    "framework": "Product-Led Growth",
+    "description": "The product itself drives acquisition, conversion, and expansion",
+    "quote": "I really like that way of thinking about it. Basically product-led growth has a ceiling. You're only going to get-",
+    "guest": "Elena Verna 2.0",
+    "episodeSlug": "elena-verna-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=bxghtN-OlJQ",
+    "category": "Growth"
+  },
+  {
+    "id": "psychological-safety",
+    "framework": "Psychological Safety",
+    "description": "Team members feel safe to take risks and be vulnerable",
+    "quote": "So giving choice is important. And again, there are different grades of transparency. We weren't up for doing this kind of open reteaming self-selection event, but we were open to the whiteboard variant.",
+    "guest": "Heidi Helfand",
+    "episodeSlug": "heidi-helfand",
+    "youtubeUrl": "https://www.youtube.com/watch?v=0wN5wSImUdY",
+    "category": "Culture"
+  },
+  {
+    "id": "stakeholder-mapping",
+    "framework": "Stakeholder Mapping",
+    "description": "Identify and prioritize key stakeholders by influence and interest",
+    "quote": "title: Improve strategy, influence, and decision-making by understanding your brain",
+    "guest": "Evan LaPointe",
+    "episodeSlug": "evan-lapointe",
+    "youtubeUrl": "https://www.youtube.com/watch?v=GECtyEj9UPA",
+    "category": "Leadership"
+  },
+  {
+    "id": "minimum-lovable-product",
+    "framework": "Minimum Lovable Product",
+    "description": "Ship something small but delightful, not just viable",
+    "quote": "Who would've thought that a head of growth, who is traditionally seen as data, metrics, spreadsheets, drive KPIs is like, \"Okay, how do we make this more lovable? How do we add more moments of delight?\"",
+    "guest": "Elena Verna 4.0",
+    "episodeSlug": "elena-verna-40",
+    "youtubeUrl": "https://www.youtube.com/watch?v=6qAB6aUMIeA",
+    "category": "Design"
+  },
+  {
+    "id": "positioning",
+    "framework": "Positioning",
+    "description": "How your product is perceived relative to alternatives in the customer's mind",
+    "quote": "title: How to nail your product positioning | April Dunford (Obviously Awesome)",
+    "guest": "April Dunford 2.0",
+    "episodeSlug": "april-dunford-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=hdjlCLb9Hl8",
+    "category": "Strategy"
+  },
+  {
+    "id": "curiosity-loops",
+    "framework": "Curiosity Loops",
+    "description": "Systematically gather diverse perspectives before making decisions",
+    "quote": "What's one thing that people may not think about or just something that you find really important that maybe is unexpected when you're looking for a coach?",
+    "guest": "Ada Chen Rekhi",
+    "episodeSlug": "ada-chen-rekhi",
+    "youtubeUrl": "https://www.youtube.com/watch?v=l-T8sNRcWQk",
+    "category": "Leadership"
+  },
+  {
+    "id": "single-threaded-leadership",
+    "framework": "Single-Threaded Leadership",
+    "description": "One leader, one mission — full ownership without divided attention",
+    "quote": "Awesome. So the advice there is focus on the parts you agree with and think about how you can find out if it's actually right or not.",
+    "guest": "Bill Carr",
+    "episodeSlug": "bill-carr",
+    "youtubeUrl": "https://www.youtube.com/watch?v=S9WHQa_AJQo",
+    "category": "Leadership"
+  },
+  {
+    "id": "understand-work",
+    "framework": "Understand Work",
+    "description": "Dedicate time to research and comprehension before execution",
+    "quote": "I want to make sure people understand this framework. And specifically, how would you best describe the difference between this middle range research and macro research?",
+    "guest": "Judd Antin",
+    "episodeSlug": "judd-antin",
+    "youtubeUrl": "https://www.youtube.com/watch?v=L6RKi9ZvkT4",
+    "category": "Strategy"
+  },
+  {
+    "id": "growth-competency-model",
+    "framework": "Growth Competency Model",
+    "description": "Evaluate growth talent across execution, customer knowledge, strategy, and communication",
+    "quote": "That's kind of the way in which I would architect it and think about it, is what's most imminent, and what do you actually need to hire for today, as opposed to just hiring for the sake of hiring and bringing in that leader.",
+    "guest": "Lauren Ipsen",
+    "episodeSlug": "lauren-ipsen",
+    "youtubeUrl": "https://www.youtube.com/watch?v=v3pofqabzhs",
+    "category": "Growth"
+  },
+  {
+    "id": "product-as-organism",
+    "framework": "Product as Organism",
+    "description": "AI products continuously learn and improve through user interactions",
+    "quote": "description: 'Asha Sharma leads AI product strategy at Microsoft, where she works",
+    "guest": "Asha Sharma",
+    "episodeSlug": "asha-sharma",
+    "youtubeUrl": "https://www.youtube.com/watch?v=J9UWaltU-7Q",
+    "category": "Strategy"
+  },
+  {
+    "id": "speed-as-strategy",
+    "framework": "Speed as Strategy",
+    "description": "Move fast, ship quickly, iterate — speed is a competitive advantage",
+    "quote": "title: 'Velocity over everything: How Ramp became the fastest-growing SaaS startup",
+    "guest": "Geoff Charles",
+    "episodeSlug": "geoff-charles",
+    "youtubeUrl": "https://www.youtube.com/watch?v=aNJDZ_RzTVk",
+    "category": "Culture"
+  },
+  {
+    "id": "managed-marketplace",
+    "framework": "Managed Marketplace",
+    "description": "Platform that actively manages quality and experience, not just connects",
+    "quote": "That's super interesting. Is there anything else that you've found to be really helpful in just operationalizing great design, craft, beauty, any processes, systems, frameworks?",
+    "guest": "Katie Dill",
+    "episodeSlug": "katie-dill",
+    "youtubeUrl": "https://www.youtube.com/watch?v=gfEEcssu304",
+    "category": "Growth"
+  },
+  {
+    "id": "writing-culture",
+    "framework": "Writing Culture",
+    "description": "Use written documents over presentations for clearer thinking and better decisions",
+    "quote": "That's kind of my bar is make it very actionable, which I think is specific to the type of newsletter I have, not necessarily broad writing the way you're describing, but that's what I try.",
+    "guest": "Julian Shapiro",
+    "episodeSlug": "julian-shapiro",
+    "youtubeUrl": "https://www.youtube.com/watch?v=c_w0LaFahxk",
+    "category": "Culture"
+  },
+  {
+    "id": "onboarding-optimization",
+    "framework": "Onboarding Optimization",
+    "description": "Optimize the first-time user experience to drive long-term retention",
+    "quote": "I would say that the guided onboarding wizard which is the immersive wizard that helps you figure out how to get started was the most impactful thing we did.",
+    "guest": "Lauryn Isford",
+    "episodeSlug": "lauryn-isford",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dLku0AiGPVA",
+    "category": "Growth"
+  },
+  {
+    "id": "bar-raiser",
+    "framework": "Bar Raiser",
+    "description": "Every hire must raise the average quality of the team",
+    "quote": "Thank you Prime. What is a favorite product you've recently discovered that you really like, maybe that you bought on Amazon, maybe not.",
+    "guest": "Bill Carr",
+    "episodeSlug": "bill-carr",
+    "youtubeUrl": "https://www.youtube.com/watch?v=S9WHQa_AJQo",
+    "category": "Culture"
+  },
+  {
+    "id": "running-toward-fear",
+    "framework": "Running Toward Fear",
+    "description": "The best leaders run toward the things they're afraid of, not away",
+    "quote": "title: '$46B of hard truths: Why founders fail and why you need to run toward fear",
+    "guest": "Ben Horowitz",
+    "episodeSlug": "ben-horowitz",
+    "youtubeUrl": "https://www.youtube.com/watch?v=KPxTekxQjzc",
+    "category": "Leadership"
+  },
+  {
+    "id": "freemium-sampling",
+    "framework": "Freemium Sampling",
+    "description": "Let users experience premium value for free, then convert to paid",
+    "quote": "Bucket three would be, you called it conversion, which essentially help them buy it more efficiently?",
+    "guest": "Hila Qu",
+    "episodeSlug": "hila-qu",
+    "youtubeUrl": "https://www.youtube.com/watch?v=7l1fIxk7SnA",
+    "category": "Growth"
+  },
+  {
+    "id": "difficult-conversations",
+    "framework": "Difficult Conversations",
+    "description": "Use scripts and frameworks to have necessary hard talks effectively",
+    "quote": "title: Scripts for navigating difficult conversations | Alisa Cohn (executive coach)",
+    "guest": "Alisa Cohn",
+    "episodeSlug": "alisa-cohn",
+    "youtubeUrl": "https://www.youtube.com/watch?v=bvF0ZM8DjuI",
+    "category": "Leadership"
+  },
+  {
+    "id": "gardener-mindset",
+    "framework": "Gardener vs Builder",
+    "description": "Cultivate conditions for emergence rather than engineering specific outcomes",
+    "quote": "Top talent has this tendency of continuously trying to get better at their craft. The key trait that I'm emphasizing for builders is...",
+    "guest": "Tomer Cohen 2.0",
+    "episodeSlug": "tomer-cohen-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=R-zCfLQD_84",
+    "category": "Culture"
+  },
+  {
+    "id": "channel-dna",
+    "framework": "Channel DNA",
+    "description": "Each acquisition channel has inherent characteristics that determine fit",
+    "quote": "title: When to invest in new acquisition channels | Adam Grenier (Uber, MasterClass)",
+    "guest": "Adam Grenier",
+    "episodeSlug": "adam-grenier",
+    "youtubeUrl": "https://www.youtube.com/watch?v=-PDsvl2WCZU",
+    "category": "Growth"
+  },
+  {
+    "id": "demand-side-sales",
+    "framework": "Demand-Side Sales",
+    "description": "Understand why customers switch, not just why they should buy",
+    "quote": "title: The ultimate guide to JTBD | Bob Moesta (co-creator of the framework)",
+    "guest": "Bob Moesta 2.0",
+    "episodeSlug": "bob-moesta-20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=xQV7HVyAJjc",
+    "category": "Strategy"
+  },
+  {
+    "id": "functional-org",
+    "framework": "Functional Organization",
+    "description": "Organize by function (design, engineering, marketing) not by product division",
+    "quote": "Explore this framework through the lens of Melissa Perri's experience",
+    "guest": "Melissa Perri",
+    "episodeSlug": "melissa-perri",
+    "youtubeUrl": "https://www.youtube.com/watch?v=wbi9chsAHp4",
+    "category": "Culture"
+  },
+  {
+    "id": "self-compassion",
+    "framework": "Self-Compassion",
+    "description": "Treat yourself with the same kindness you'd show a friend in difficulty",
+    "quote": "title: When enough is enough | Andy Johns (ex-FB, Twitter, Quora)",
+    "guest": "Andy Johns",
+    "episodeSlug": "andy-johns",
+    "youtubeUrl": "https://www.youtube.com/watch?v=_93m4PriHyc",
+    "category": "Culture"
+  },
+  {
+    "id": "agentic-products",
+    "framework": "Agentic Products",
+    "description": "Products that act autonomously on behalf of users, not just respond",
+    "quote": "We worked on a guest post together. They had this really key insight that building AI products is very different from building non-AI products.",
+    "guest": "Aishwarya Naresh Reganti + Kiriti Badam",
+    "episodeSlug": "aishwarya-naresh-reganti-kiriti-badam",
+    "youtubeUrl": "https://www.youtube.com/watch?v=z7T1pCxgvlA",
+    "category": "Strategy"
+  }
+]
