@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Sparkles, ExternalLink, Loader2 } from 'lucide-react'
+import { Send, ExternalLink, Loader2 } from 'lucide-react'
 import { askOracle } from '../utils/gemini'
 
 const SUGGESTED_QUESTIONS = [
@@ -15,52 +15,51 @@ const SUGGESTED_QUESTIONS = [
 function MessageBubble({ message, isUser }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-5`}
     >
-      <div className={`max-w-[85%] ${isUser ? 'order-1' : 'order-1'}`}>
+      <div className={`max-w-[85%]`}>
         {!isUser && (
-          <div className="flex items-center gap-2 mb-1.5">
-            <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ background: 'rgba(255, 215, 0, 0.2)' }}>
-              <Sparkles className="w-3 h-3 text-oracle-gold" />
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-5 h-5 rounded-md flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.15), rgba(110, 86, 207, 0.1))' }}>
+              <span className="text-oracle-gold text-[10px]">✦</span>
             </div>
-            <span className="text-xs text-oracle-gold/80 font-medium">Oracle</span>
+            <span className="text-[10px] text-oracle-gold/60 font-mono tracking-wider uppercase">Oracle</span>
           </div>
         )}
         
         <div
-          className={`rounded-2xl px-4 py-3 ${
+          className={`rounded-xl px-4 py-3 ${
             isUser
               ? 'glass-bright text-oracle-text'
-              : 'glass text-oracle-text'
+              : 'bg-oracle-surface border border-oracle-border text-oracle-text'
           }`}
-          style={isUser ? { borderBottomRightRadius: '0.5rem' } : { borderBottomLeftRadius: '0.5rem' }}
+          style={isUser ? { borderBottomRightRadius: '0.375rem' } : { borderBottomLeftRadius: '0.375rem' }}
         >
-          {/* Render message with formatting */}
-          <div className="text-sm leading-relaxed whitespace-pre-wrap oracle-response"
+          <div className="text-[13px] leading-[1.7] whitespace-pre-wrap oracle-response"
             dangerouslySetInnerHTML={{ 
               __html: message.text
-                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-oracle-gold/90">$1</strong>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-oracle-gold/90 font-medium">$1</strong>')
                 .replace(/\n/g, '<br/>')
             }}
           />
 
           {/* Sources */}
           {message.sources?.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-white/10">
-              <p className="text-xs text-oracle-gold/70 mb-2 font-medium">📚 Sources</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-3 pt-3 border-t border-oracle-border">
+              <p className="text-[10px] text-oracle-gold/50 mb-2 font-mono tracking-wider uppercase">Sources</p>
+              <div className="flex flex-wrap gap-1.5">
                 {message.sources.map((source, i) => (
                   <a
                     key={i}
                     href={source.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs bg-white/5 hover:bg-white/10 text-oracle-text-dim hover:text-oracle-gold transition-colors"
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] bg-oracle-surface-raised border border-oracle-border text-oracle-text-dim hover:text-oracle-gold hover:border-oracle-gold/20 transition-all"
                   >
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-2.5 h-2.5" />
                     {source.guest}
                   </a>
                 ))}
@@ -79,11 +78,11 @@ function TypingIndicator() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex justify-start mb-4"
+      className="flex justify-start mb-5"
     >
-      <div className="glass rounded-2xl px-4 py-3 flex items-center gap-2">
-        <Loader2 className="w-4 h-4 text-oracle-gold animate-spin" />
-        <span className="text-sm text-oracle-text-dim">The Oracle is consulting the transcripts...</span>
+      <div className="bg-oracle-surface border border-oracle-border rounded-xl px-4 py-3 flex items-center gap-2.5">
+        <Loader2 className="w-3.5 h-3.5 text-oracle-gold/60 animate-spin" />
+        <span className="text-[12px] text-oracle-text-dim">Consulting the transcripts...</span>
       </div>
     </motion.div>
   )
@@ -94,7 +93,7 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
     {
       id: 'welcome',
       isUser: false,
-      text: "Welcome, seeker of product wisdom. I hold the knowledge of 303 episodes of Lenny's Podcast — from growth loops to leadership lessons. Ask me anything about product management, and I shall draw upon the wisdom of the guests who came before you.",
+      text: "I hold the knowledge of 303 episodes of Lenny's Podcast — from growth loops to leadership lessons.\n\nAsk me anything about product management, and I'll draw upon the wisdom of the guests who came before you.",
       sources: [],
     }
   ])
@@ -115,7 +114,6 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
     setInput('')
     setIsLoading(true)
 
-    // Add user message
     const userMsg = { id: Date.now(), isUser: true, text: question }
     setMessages(prev => [...prev, userMsg])
 
@@ -132,7 +130,6 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
       }
       setMessages(prev => [...prev, oracleMsg])
 
-      // Track categories from sources
       if (response.categories) {
         response.categories.forEach(cat => onTrackExploration(cat))
       }
@@ -140,7 +137,7 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
       const errorMsg = {
         id: Date.now() + 1,
         isUser: false,
-        text: "The cosmic signal is unclear... I couldn't reach the transcripts. Please check that a Gemini API key is configured and try again.",
+        text: "The signal is unclear... I couldn't reach the transcripts. Please check that a Gemini API key is configured and try again.",
         sources: [],
       }
       setMessages(prev => [...prev, errorMsg])
@@ -159,28 +156,28 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-20 pb-4 px-4 relative z-10 flex flex-col"
+      className="min-h-screen pt-20 pb-4 px-4 relative z-10 flex flex-col oracle-grain"
     >
       <div className="max-w-2xl mx-auto flex-1 flex flex-col w-full">
         {/* Header */}
         <motion.div
-          initial={{ y: -20, opacity: 0 }}
+          initial={{ y: -15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="text-center mb-6"
         >
           <h2 
-            className="text-3xl font-bold mb-1 text-gold-gradient"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            className="text-3xl font-semibold mb-1 text-gold-gradient tracking-tight"
+            style={{ fontFamily: "var(--font-serif)" }}
           >
             Ask the Oracle
           </h2>
-          <p className="text-oracle-text-dim text-sm">
-            303 episodes of PM wisdom at your fingertips
+          <p className="text-oracle-text-muted text-[11px] font-mono tracking-wider">
+            303 episodes · PM wisdom at your fingertips
           </p>
         </motion.div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto mb-4 pr-1 space-y-1">
+        <div className="flex-1 overflow-y-auto mb-4 pr-1">
           {messages.map(msg => (
             <MessageBubble key={msg.id} message={msg} isUser={msg.isUser} />
           ))}
@@ -192,7 +189,7 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Suggestions (show when few messages) */}
+        {/* Suggestions */}
         {messages.length <= 1 && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -200,13 +197,13 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
             transition={{ delay: 0.5 }}
             className="mb-4"
           >
-            <p className="text-xs text-oracle-text-dim/60 mb-2 text-center">Try asking:</p>
+            <p className="text-[10px] text-oracle-text-muted font-mono tracking-wider text-center mb-3 uppercase">Suggested</p>
             <div className="flex flex-wrap justify-center gap-2">
               {SUGGESTED_QUESTIONS.map((q, i) => (
                 <button
                   key={i}
                   onClick={() => handleSuggestion(q)}
-                  className="px-3 py-1.5 rounded-full text-xs glass text-oracle-text-dim hover:text-oracle-gold hover:border-oracle-gold/30 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg text-[11px] bg-oracle-surface border border-oracle-border text-oracle-text-dim hover:text-oracle-gold hover:border-oracle-gold/20 transition-all cursor-pointer"
                 >
                   {q}
                 </button>
@@ -217,20 +214,20 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
 
         {/* Input */}
         <form onSubmit={handleSubmit} className="relative">
-          <div className="glass-bright rounded-2xl flex items-center pr-2">
+          <div className="glass-bright rounded-xl flex items-center pr-2">
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about product management..."
-              className="flex-1 bg-transparent px-5 py-4 text-oracle-text placeholder:text-oracle-text-dim/40 outline-none text-sm"
+              className="flex-1 bg-transparent px-4 py-3.5 text-oracle-text placeholder:text-oracle-text-muted/50 outline-none text-[13px]"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="p-2.5 rounded-xl bg-oracle-gold/20 text-oracle-gold hover:bg-oracle-gold/30 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-oracle-gold disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer hover:bg-oracle-gold/10"
             >
               <Send className="w-4 h-4" />
             </button>

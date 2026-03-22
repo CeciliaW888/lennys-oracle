@@ -1,26 +1,24 @@
 import { useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Share2, Download, Trophy, Sparkles } from 'lucide-react'
+import { Share2, Trophy } from 'lucide-react'
 
 const CATEGORIES = [
-  { key: 'Growth', label: 'Growth', icon: '🌱', color: '#10b981', description: 'Acquisition, retention, loops' },
-  { key: 'Strategy', label: 'Strategy', icon: '♟️', color: '#6366f1', description: 'Vision, prioritization, positioning' },
-  { key: 'Design', label: 'Design', icon: '🎨', color: '#f43f5e', description: 'UX, discovery, user research' },
-  { key: 'Leadership', label: 'Leadership', icon: '👑', color: '#f59e0b', description: 'People, communication, influence' },
-  { key: 'Data', label: 'Data', icon: '📊', color: '#06b6d4', description: 'Metrics, analytics, experiments' },
-  { key: 'Culture', label: 'Culture', icon: '🌍', color: '#a855f7', description: 'Values, process, team dynamics' },
+  { key: 'Growth', label: 'Growth', icon: '◆', color: '#30a46c', description: 'Acquisition, retention, loops' },
+  { key: 'Strategy', label: 'Strategy', icon: '◈', color: '#6e56cf', description: 'Vision, prioritization, positioning' },
+  { key: 'Design', label: 'Design', icon: '○', color: '#e5484d', description: 'UX, discovery, user research' },
+  { key: 'Leadership', label: 'Leadership', icon: '△', color: '#d4a574', description: 'People, communication, influence' },
+  { key: 'Data', label: 'Data', icon: '□', color: '#3e63dd', description: 'Metrics, analytics, experiments' },
+  { key: 'Culture', label: 'Culture', icon: '⬡', color: '#ab4aba', description: 'Values, process, team dynamics' },
 ]
 
-function RadarChart({ data, size = 300 }) {
+function RadarChart({ data, size = 320 }) {
   const center = size / 2
-  const radius = (size / 2) * 0.75
+  const radius = (size / 2) * 0.72
   const angleStep = (2 * Math.PI) / CATEGORIES.length
   
-  // Normalize data to 0-1 range
   const maxVal = Math.max(...Object.values(data), 1)
   const normalizedData = CATEGORIES.map(cat => (data[cat.key] || 0) / maxVal)
 
-  // Generate polygon points
   const points = CATEGORIES.map((_, i) => {
     const angle = i * angleStep - Math.PI / 2
     const value = normalizedData[i]
@@ -31,12 +29,28 @@ function RadarChart({ data, size = 300 }) {
   })
 
   const polygonPoints = points.map(p => `${p.x},${p.y}`).join(' ')
-
-  // Grid levels
   const levels = [0.25, 0.5, 0.75, 1]
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+      <defs>
+        <linearGradient id="radar-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#d4a574" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#6e56cf" stopOpacity="0.1" />
+        </linearGradient>
+        <linearGradient id="radar-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#d4a574" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#6e56cf" stopOpacity="0.6" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
       {/* Grid */}
       {levels.map((level, li) => {
         const gridPoints = CATEGORIES.map((_, i) => {
@@ -48,7 +62,7 @@ function RadarChart({ data, size = 300 }) {
             key={li}
             points={gridPoints}
             fill="none"
-            stroke="rgba(255, 215, 0, 0.1)"
+            stroke="rgba(212, 165, 116, 0.06)"
             strokeWidth="1"
           />
         )
@@ -64,7 +78,7 @@ function RadarChart({ data, size = 300 }) {
             y1={center}
             x2={center + Math.cos(angle) * radius}
             y2={center + Math.sin(angle) * radius}
-            stroke="rgba(255, 215, 0, 0.1)"
+            stroke="rgba(212, 165, 116, 0.06)"
             strokeWidth="1"
           />
         )
@@ -72,35 +86,46 @@ function RadarChart({ data, size = 300 }) {
 
       {/* Data polygon */}
       <motion.polygon
-        initial={{ opacity: 0, scale: 0.5 }}
+        initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         points={polygonPoints}
-        fill="rgba(255, 215, 0, 0.15)"
-        stroke="#ffd700"
-        strokeWidth="2"
+        fill="url(#radar-fill)"
+        stroke="url(#radar-stroke)"
+        strokeWidth="1.5"
+        filter="url(#glow)"
         style={{ transformOrigin: `${center}px ${center}px` }}
       />
 
-      {/* Data points */}
+      {/* Data points — glowing nodes */}
       {points.map((point, i) => (
-        <motion.circle
-          key={i}
-          initial={{ opacity: 0, r: 0 }}
-          animate={{ opacity: 1, r: 4 }}
-          transition={{ delay: 0.5 + i * 0.1 }}
-          cx={point.x}
-          cy={point.y}
-          fill={CATEGORIES[i].color}
-          stroke="#fff"
-          strokeWidth="1"
-        />
+        <g key={i}>
+          <motion.circle
+            initial={{ opacity: 0, r: 0 }}
+            animate={{ opacity: 0.3, r: 8 }}
+            transition={{ delay: 0.6 + i * 0.1 }}
+            cx={point.x}
+            cy={point.y}
+            fill={CATEGORIES[i].color}
+            opacity="0.15"
+          />
+          <motion.circle
+            initial={{ opacity: 0, r: 0 }}
+            animate={{ opacity: 1, r: 3.5 }}
+            transition={{ delay: 0.6 + i * 0.1 }}
+            cx={point.x}
+            cy={point.y}
+            fill={CATEGORIES[i].color}
+            stroke="rgba(8, 8, 10, 0.5)"
+            strokeWidth="1"
+          />
+        </g>
       ))}
 
       {/* Labels */}
       {CATEGORIES.map((cat, i) => {
         const angle = i * angleStep - Math.PI / 2
-        const labelRadius = radius + 28
+        const labelRadius = radius + 30
         const x = center + Math.cos(angle) * labelRadius
         const y = center + Math.sin(angle) * labelRadius
         return (
@@ -110,9 +135,10 @@ function RadarChart({ data, size = 300 }) {
             y={y}
             textAnchor="middle"
             dominantBaseline="central"
-            fontSize="12"
+            fontSize="11"
             fill={cat.color}
-            fontWeight="600"
+            fontWeight="500"
+            fontFamily="var(--font-sans)"
           >
             {cat.icon} {cat.label}
           </text>
@@ -124,11 +150,10 @@ function RadarChart({ data, size = 300 }) {
 
 function getPmArchetype(data) {
   const maxVal = Math.max(...Object.values(data))
-  if (maxVal === 0) return { name: 'Seeking Wisdom', description: 'Start exploring to discover your PM DNA!' }
+  if (maxVal === 0) return { name: 'Seeking Wisdom', description: 'Start exploring to discover your PM DNA' }
   
   const sorted = Object.entries(data).sort(([,a], [,b]) => b - a)
   const top = sorted[0][0]
-  const second = sorted[1][0]
   
   const archetypes = {
     'Growth': { name: 'The Growth Alchemist', description: 'You\'re drawn to loops, metrics, and scaling — a true growth engine.' },
@@ -149,14 +174,12 @@ export default function PmDna({ userProfile }) {
   const archetype = getPmArchetype(data)
 
   const handleShare = async () => {
-    const text = `🔮 My PM DNA from Lenny's Oracle:\n\n` +
+    const text = `✦ My PM DNA from Lenny's Oracle:\n\n` +
       CATEGORIES.map(cat => `${cat.icon} ${cat.label}: ${'█'.repeat(Math.min(data[cat.key] || 0, 10))} (${data[cat.key] || 0})`).join('\n') +
-      `\n\n✨ Archetype: ${archetype.name}\n\nDiscover yours at lennys-oracle.vercel.app`
+      `\n\n${archetype.name}\n\nDiscover yours → lennys-oracle.vercel.app`
 
     if (navigator.share) {
-      try {
-        await navigator.share({ text })
-      } catch {}
+      try { await navigator.share({ text }) } catch {}
     } else {
       navigator.clipboard?.writeText(text)
       alert('PM DNA copied to clipboard!')
@@ -168,7 +191,7 @@ export default function PmDna({ userProfile }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-20 pb-12 px-4 relative z-10"
+      className="min-h-screen pt-20 pb-12 px-4 relative z-10 oracle-grain"
     >
       <div className="max-w-2xl mx-auto">
         {/* Header */}
@@ -177,13 +200,14 @@ export default function PmDna({ userProfile }) {
           animate={{ y: 0, opacity: 1 }}
           className="text-center mb-8"
         >
+          <p className="text-[10px] font-mono text-oracle-text-muted tracking-[0.3em] uppercase mb-2">Your Profile</p>
           <h2 
-            className="text-3xl md:text-4xl font-bold mb-2 text-gold-gradient"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            className="text-3xl md:text-5xl font-semibold mb-3 text-gold-gradient tracking-tight"
+            style={{ fontFamily: "var(--font-serif)" }}
           >
-            Your PM DNA
+            PM DNA
           </h2>
-          <p className="text-oracle-text-dim">
+          <p className="text-oracle-text-dim text-sm">
             {totalExplorations > 0 
               ? `Based on ${totalExplorations} explorations across ${userProfile.draws.length} readings`
               : 'Draw your daily cards and ask the Oracle to build your profile'
@@ -196,24 +220,30 @@ export default function PmDna({ userProfile }) {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="glass-bright rounded-2xl p-6 text-center mb-8"
+          className="relative rounded-xl p-6 text-center mb-8 overflow-hidden"
         >
-          <Trophy className="w-8 h-8 text-oracle-gold mx-auto mb-3" />
-          <h3 
-            className="text-2xl font-bold text-oracle-gold mb-2"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            {archetype.name}
-          </h3>
-          <p className="text-oracle-text-dim">{archetype.description}</p>
+          <div className="absolute inset-0 bg-gradient-to-br from-oracle-gold/5 via-oracle-surface to-oracle-purple/5" />
+          <div className="absolute inset-0 border border-oracle-gold/10 rounded-xl" />
+          <div className="relative">
+            <div className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.12), rgba(110, 86, 207, 0.08))' }}>
+              <Trophy className="w-5 h-5 text-oracle-gold/80" />
+            </div>
+            <h3 
+              className="text-2xl font-semibold text-oracle-gold-bright mb-2 tracking-tight"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              {archetype.name}
+            </h3>
+            <p className="text-oracle-text-dim text-sm">{archetype.description}</p>
+          </div>
         </motion.div>
 
         {/* Radar Chart */}
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
+          initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="glass rounded-2xl p-6 mb-8"
+          transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="glass rounded-xl p-6 mb-8"
           ref={canvasRef}
         >
           <RadarChart data={data} size={320} />
@@ -224,7 +254,7 @@ export default function PmDna({ userProfile }) {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="space-y-3 mb-8"
+          className="space-y-2.5 mb-8"
         >
           {CATEGORIES.map((cat, i) => {
             const value = data[cat.key] || 0
@@ -234,28 +264,31 @@ export default function PmDna({ userProfile }) {
             return (
               <motion.div
                 key={cat.key}
-                initial={{ x: -20, opacity: 0 }}
+                initial={{ x: -15, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.7 + i * 0.08 }}
-                className="glass rounded-xl p-4"
+                transition={{ delay: 0.7 + i * 0.06 }}
+                className="bg-oracle-surface border border-oracle-border rounded-lg p-4"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{cat.icon}</span>
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-sm" style={{ color: cat.color }}>{cat.icon}</span>
                     <div>
-                      <span className="text-sm font-semibold" style={{ color: cat.color }}>{cat.label}</span>
-                      <p className="text-xs text-oracle-text-dim">{cat.description}</p>
+                      <span className="text-xs font-medium" style={{ color: cat.color }}>{cat.label}</span>
+                      <p className="text-[10px] text-oracle-text-muted">{cat.description}</p>
                     </div>
                   </div>
-                  <span className="text-sm font-mono text-oracle-text-dim">{value}</span>
+                  <span className="text-xs font-mono text-oracle-text-dim">{value}</span>
                 </div>
-                <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                <div className="h-1 rounded-full bg-oracle-border overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${pct}%` }}
-                    transition={{ delay: 0.8 + i * 0.08, duration: 0.6 }}
+                    transition={{ delay: 0.8 + i * 0.06, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     className="h-full rounded-full"
-                    style={{ background: cat.color }}
+                    style={{ 
+                      background: cat.color,
+                      boxShadow: `0 0 8px ${cat.color}30`,
+                    }}
                   />
                 </div>
               </motion.div>
@@ -265,17 +298,23 @@ export default function PmDna({ userProfile }) {
 
         {/* Share button */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1 }}
           className="text-center"
         >
           <button
             onClick={handleShare}
-            className="px-6 py-3 rounded-full glass-bright text-oracle-gold font-medium flex items-center gap-2 mx-auto cursor-pointer hover:bg-white/15 transition-colors"
+            className="group px-6 py-3 rounded-xl font-medium text-sm flex items-center gap-2 mx-auto cursor-pointer transition-all"
+            style={{
+              background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(110, 86, 207, 0.05))',
+              border: '1px solid rgba(212, 165, 116, 0.15)',
+              color: 'var(--color-oracle-gold)',
+            }}
           >
             <Share2 className="w-4 h-4" />
             Share Your PM DNA
+            <span className="group-hover:translate-x-0.5 transition-transform">→</span>
           </button>
         </motion.div>
       </div>

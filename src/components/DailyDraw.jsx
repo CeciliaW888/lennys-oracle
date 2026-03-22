@@ -1,24 +1,24 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { RefreshCw, Share2, ExternalLink, Sparkles } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import cards from '../data/cards.json'
 
 const CATEGORY_COLORS = {
-  Growth: '#10b981',
-  Strategy: '#6366f1',
-  Design: '#f43f5e',
-  Leadership: '#f59e0b',
-  Data: '#06b6d4',
-  Culture: '#a855f7',
+  Growth: '#30a46c',
+  Strategy: '#6e56cf',
+  Design: '#e5484d',
+  Leadership: '#d4a574',
+  Data: '#3e63dd',
+  Culture: '#ab4aba',
 }
 
 const CATEGORY_ICONS = {
-  Growth: '🌱',
-  Strategy: '♟️',
-  Design: '🎨',
-  Leadership: '👑',
-  Data: '📊',
-  Culture: '🌍',
+  Growth: '◆',
+  Strategy: '◈',
+  Design: '○',
+  Leadership: '△',
+  Data: '□',
+  Culture: '⬡',
 }
 
 function seededRandom(seed) {
@@ -43,97 +43,109 @@ function TarotCard({ card, index, isFlipped, onFlip, onTrack }) {
     }
   }
 
-  const catColor = CATEGORY_COLORS[card.category] || '#ffd700'
+  const catColor = CATEGORY_COLORS[card.category] || '#d4a574'
+  const positions = ['Past', 'Present', 'Future']
 
   return (
     <motion.div
-      initial={{ y: 60, opacity: 0, rotateZ: (index - 1) * 5 }}
+      initial={{ y: 60, opacity: 0, rotateZ: (index - 1) * 3 }}
       animate={{ y: 0, opacity: 1, rotateZ: 0 }}
-      transition={{ delay: 0.2 + index * 0.15, duration: 0.6, ease: 'easeOut' }}
-      className="w-full max-w-[280px] aspect-[2/3] perspective-1000 cursor-pointer"
+      transition={{ delay: 0.3 + index * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full max-w-[260px] aspect-[2/3] perspective-1000 cursor-pointer group"
       onClick={handleFlip}
       ref={cardRef}
     >
       <div className={`card-inner w-full h-full relative ${isFlipped ? 'flipped' : ''}`}>
-        {/* Card Back (face down) */}
-        <div className="card-front absolute inset-0 rounded-2xl overflow-hidden gold-glow">
+        {/* Card Back */}
+        <div className="card-front absolute inset-0 rounded-2xl overflow-hidden foil-effect">
           <div 
-            className="w-full h-full flex flex-col items-center justify-center p-6"
+            className="w-full h-full flex flex-col items-center justify-center p-6 relative"
             style={{ 
-              background: 'linear-gradient(135deg, #1a1145 0%, #2d1b69 50%, #1a1145 100%)',
-              border: '2px solid rgba(255, 215, 0, 0.3)',
+              background: 'linear-gradient(160deg, #111114 0%, #18181c 50%, #111114 100%)',
+              border: '1px solid rgba(212, 165, 116, 0.12)',
               borderRadius: '1rem',
             }}
           >
-            {/* Decorative pattern */}
-            <div className="absolute inset-4 border border-oracle-gold/20 rounded-xl" />
-            <div className="absolute inset-8 border border-oracle-gold/10 rounded-lg" />
+            {/* Geometric border pattern */}
+            <div className="absolute inset-3 border border-oracle-gold/8 rounded-xl" />
+            <div className="absolute inset-6 border border-oracle-gold/5 rounded-lg" />
             
+            {/* Center symbol */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="text-5xl mb-4 opacity-60"
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+              className="text-3xl mb-5 text-oracle-gold/30"
             >
               ✦
             </motion.div>
             
-            <p className="text-oracle-gold/60 text-sm font-medium tracking-[0.2em] uppercase">
+            <p className="text-oracle-gold/40 text-[10px] font-mono tracking-[0.3em] uppercase">
               Tap to Reveal
             </p>
             
             <motion.div
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="mt-4 text-oracle-gold/40 text-xs"
+              animate={{ opacity: [0.2, 0.5, 0.2] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="mt-4 text-oracle-gold/25 text-[10px] font-mono tracking-wider"
             >
-              {['Past', 'Present', 'Future'][index]}
+              {positions[index]}
             </motion.div>
+
+            {/* Corner accents */}
+            <div className="absolute top-3 left-3 w-4 h-4 border-l border-t border-oracle-gold/10 rounded-tl-md" />
+            <div className="absolute top-3 right-3 w-4 h-4 border-r border-t border-oracle-gold/10 rounded-tr-md" />
+            <div className="absolute bottom-3 left-3 w-4 h-4 border-l border-b border-oracle-gold/10 rounded-bl-md" />
+            <div className="absolute bottom-3 right-3 w-4 h-4 border-r border-b border-oracle-gold/10 rounded-br-md" />
           </div>
         </div>
 
-        {/* Card Front (face up) */}
-        <div className="card-back absolute inset-0 rounded-2xl overflow-hidden">
+        {/* Card Front (revealed) */}
+        <div className="card-back absolute inset-0 rounded-2xl overflow-hidden foil-effect">
           <div 
             className="w-full h-full flex flex-col p-5 relative"
             style={{ 
-              background: 'linear-gradient(160deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.95) 100%)',
-              border: `2px solid ${catColor}40`,
+              background: `linear-gradient(160deg, #111114 0%, #18181c 100%)`,
+              border: `1px solid ${catColor}20`,
               borderRadius: '1rem',
             }}
           >
+            {/* Subtle top glow */}
+            <div className="absolute top-0 left-0 right-0 h-24 opacity-30" style={{ background: `radial-gradient(ellipse at 50% 0%, ${catColor}10, transparent)` }} />
+
             {/* Category badge */}
             <div 
-              className="self-start px-3 py-1 rounded-full text-xs font-semibold mb-3 flex items-center gap-1"
-              style={{ background: `${catColor}20`, color: catColor, border: `1px solid ${catColor}30` }}
+              className="self-start px-2.5 py-1 rounded-md text-[10px] font-mono font-medium mb-3 flex items-center gap-1.5 tracking-wider uppercase"
+              style={{ background: `${catColor}10`, color: catColor, border: `1px solid ${catColor}15` }}
             >
               {CATEGORY_ICONS[card.category]} {card.category}
             </div>
 
             {/* Framework name */}
             <h3 
-              className="text-xl font-bold mb-2 leading-tight"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#ffd700' }}
+              className="text-xl font-semibold mb-2 leading-tight tracking-tight"
+              style={{ fontFamily: "var(--font-serif)", color: 'var(--color-oracle-gold-bright)' }}
             >
               {card.framework}
             </h3>
 
             {/* Description */}
-            <p className="text-oracle-text-dim text-sm mb-4 leading-relaxed">
+            <p className="text-oracle-text-dim text-[13px] mb-4 leading-relaxed">
               {card.description}
             </p>
 
             {/* Quote */}
             <div className="flex-1 flex items-center">
-              <blockquote className="text-sm italic text-oracle-text/80 leading-relaxed border-l-2 pl-3" style={{ borderColor: `${catColor}60` }}>
-                "{card.quote?.length > 180 ? card.quote.substring(0, 177) + '...' : card.quote}"
+              <blockquote className="text-[12px] italic text-oracle-text/70 leading-relaxed pl-3 relative">
+                <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: `linear-gradient(to bottom, ${catColor}40, transparent)` }} />
+                "{card.quote?.length > 160 ? card.quote.substring(0, 157) + '...' : card.quote}"
               </blockquote>
             </div>
 
             {/* Guest attribution */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-oracle-text">{card.guest}</p>
-                <p className="text-xs text-oracle-text-dim">Lenny's Podcast</p>
+                <p className="text-sm font-medium text-oracle-text">{card.guest}</p>
+                <p className="text-[10px] text-oracle-text-muted font-mono tracking-wider">Lenny's Podcast</p>
               </div>
               {card.youtubeUrl && (
                 <a
@@ -141,9 +153,9 @@ function TarotCard({ card, index, isFlipped, onFlip, onTrack }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-oracle-text-dim hover:text-oracle-gold transition-colors"
+                  className="w-7 h-7 rounded-md flex items-center justify-center text-oracle-text-muted hover:text-oracle-gold hover:bg-oracle-gold/5 transition-all"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               )}
             </div>
@@ -163,7 +175,6 @@ export default function DailyDraw({ userProfile, onSaveDraw, onTrackExploration 
     const cards = getDailyCards()
     setDailyCards(cards)
     
-    // Check if already drawn today
     const today = new Date().toISOString().split('T')[0]
     const todayDraw = userProfile.draws.find(d => d.date === today)
     if (todayDraw) {
@@ -194,29 +205,29 @@ export default function DailyDraw({ userProfile, onSaveDraw, onTrackExploration 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-20 pb-12 px-4 relative z-10"
+      className="min-h-screen pt-20 pb-12 px-4 relative z-10 oracle-grain"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
+          <p className="text-[10px] font-mono text-oracle-text-muted tracking-[0.3em] uppercase mb-2">{dateStr}</p>
           <h2 
-            className="text-3xl md:text-4xl font-bold mb-2 text-gold-gradient"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            className="text-3xl md:text-5xl font-semibold mb-3 text-gold-gradient tracking-tight"
+            style={{ fontFamily: "var(--font-serif)" }}
           >
             Your Daily Draw
           </h2>
-          <p className="text-oracle-text-dim">{dateStr}</p>
           {!allRevealed && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
-              className="text-oracle-gold/60 text-sm mt-2"
+              className="text-oracle-text-muted text-sm"
             >
               Tap each card to reveal today's wisdom
             </motion.p>
@@ -244,18 +255,20 @@ export default function DailyDraw({ userProfile, onSaveDraw, onTrackExploration 
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-center mt-10"
+              className="text-center mt-12"
             >
-              <div className="glass rounded-2xl p-6 max-w-lg mx-auto">
-                <Sparkles className="w-6 h-6 text-oracle-gold mx-auto mb-3" />
-                <p className="text-oracle-text mb-1">
-                  Today's reading: <span className="text-oracle-gold font-semibold">{dailyCards.map(c => c.framework).join(' • ')}</span>
+              <div className="glass rounded-xl p-6 max-w-lg mx-auto">
+                <div className="w-8 h-8 rounded-lg mx-auto mb-3 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(110, 86, 207, 0.08))' }}>
+                  <span className="text-oracle-gold text-sm">✦</span>
+                </div>
+                <p className="text-oracle-text text-sm mb-1">
+                  Today's reading: <span className="text-oracle-gold font-medium">{dailyCards.map(c => c.framework).join(' · ')}</span>
                 </p>
-                <p className="text-oracle-text-dim text-sm">
+                <p className="text-oracle-text-dim text-xs leading-relaxed">
                   The cards suggest a focus on {dailyCards[0]?.category?.toLowerCase()} and {dailyCards[1]?.category?.toLowerCase()} today.
                 </p>
-                <p className="text-oracle-text-dim/50 text-xs mt-4">
-                  New cards appear each day at midnight
+                <p className="text-oracle-text-muted text-[10px] mt-4 font-mono tracking-wider">
+                  New cards at midnight
                 </p>
               </div>
             </motion.div>
