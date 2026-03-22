@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#ffec80"/>
+    </linearGradient>
+  </defs>
+  <!-- Eye with data iris — Data/Analytics -->
+  <path d="M6 24 C6 24 14 12 24 12 C34 12 42 24 42 24 C42 24 34 36 24 36 C14 36 6 24 6 24 Z" 
+    stroke="url(#gold)" stroke-width="2" fill="none"/>
+  <!-- Iris -->
+  <circle cx="24" cy="24" r="8" stroke="url(#gold)" stroke-width="1.5" fill="none"/>
+  <!-- Pupil with chart inside -->
+  <circle cx="24" cy="24" r="4" fill="#ffd700" opacity="0.3"/>
+  <!-- Mini bar chart in pupil -->
+  <rect x="21" y="24" width="2" height="4" fill="#ffd700"/>
+  <rect x="23.5" y="22" width="2" height="6" fill="#ffec80"/>
+  <rect x="26" y="23" width="2" height="5" fill="#ffd700"/>
+  <!-- Sparkle -->
+  <circle cx="20" cy="20" r="1.5" fill="#ffffff" opacity="0.6"/>
+</svg>

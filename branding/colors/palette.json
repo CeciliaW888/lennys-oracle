@@ -1,0 +1,155 @@
+{
+  "brand": "Lenny's Oracle",
+  "version": "1.0.0",
+  "colors": {
+    "primary": {
+      "cosmicDeep": {
+        "hex": "#0f0c29",
+        "rgb": "rgb(15, 12, 41)",
+        "hsl": "hsl(246, 55%, 10%)",
+        "usage": "Primary background, deep space feel"
+      },
+      "mysticPurple": {
+        "hex": "#302b63",
+        "rgb": "rgb(48, 43, 99)",
+        "hsl": "hsl(245, 39%, 28%)",
+        "usage": "Secondary background, cards, mid-tone surfaces"
+      },
+      "twilightBlue": {
+        "hex": "#24243e",
+        "rgb": "rgb(36, 36, 62)",
+        "hsl": "hsl(240, 27%, 19%)",
+        "usage": "Card backgrounds, input fields, panels"
+      },
+      "oracleGold": {
+        "hex": "#ffd700",
+        "rgb": "rgb(255, 215, 0)",
+        "hsl": "hsl(51, 100%, 50%)",
+        "usage": "Stars, highlights, active states, borders"
+      },
+      "lennyOrange": {
+        "hex": "#ff6b35",
+        "rgb": "rgb(255, 107, 53)",
+        "hsl": "hsl(16, 100%, 60%)",
+        "usage": "CTAs, action buttons, energy accents"
+      }
+    },
+    "neutral": {
+      "cream": {
+        "hex": "#f5f0eb",
+        "rgb": "rgb(245, 240, 235)",
+        "hsl": "hsl(30, 33%, 94%)",
+        "usage": "Body text on dark, user chat bubbles"
+      },
+      "white": {
+        "hex": "#ffffff",
+        "rgb": "rgb(255, 255, 255)",
+        "hsl": "hsl(0, 0%, 100%)",
+        "usage": "Headings on dark, high emphasis text"
+      },
+      "warmGray": {
+        "hex": "#a09dad",
+        "rgb": "rgb(160, 157, 173)",
+        "hsl": "hsl(251, 8%, 65%)",
+        "usage": "Secondary text, timestamps, metadata"
+      },
+      "deepGray": {
+        "hex": "#1a1a2e",
+        "rgb": "rgb(26, 26, 46)",
+        "hsl": "hsl(240, 28%, 14%)",
+        "usage": "Borders, dividers on dark surfaces"
+      }
+    },
+    "accent": {
+      "goldLight": {
+        "hex": "#ffec80",
+        "rgb": "rgb(255, 236, 128)",
+        "hsl": "hsl(51, 100%, 75%)",
+        "usage": "Highlighted stars, active constellation nodes"
+      },
+      "mysticRose": {
+        "hex": "#e8a0bf",
+        "rgb": "rgb(232, 160, 191)",
+        "hsl": "hsl(334, 56%, 77%)",
+        "usage": "Feminine accent, special achievements"
+      },
+      "cosmicTeal": {
+        "hex": "#64ffda",
+        "rgb": "rgb(100, 255, 218)",
+        "hsl": "hsl(166, 100%, 70%)",
+        "usage": "Success states, streak indicators"
+      },
+      "starlightSilver": {
+        "hex": "#c8c8e8",
+        "rgb": "rgb(200, 200, 232)",
+        "hsl": "hsl(240, 36%, 85%)",
+        "usage": "Disabled states, placeholder text"
+      }
+    },
+    "semantic": {
+      "success": {
+        "hex": "#64ffda",
+        "usage": "Correct answers, achievements unlocked"
+      },
+      "warning": {
+        "hex": "#ffd700",
+        "usage": "Streak warnings, attention needed"
+      },
+      "error": {
+        "hex": "#ff6b6b",
+        "usage": "Errors, destructive actions"
+      },
+      "info": {
+        "hex": "#a5d8ff",
+        "usage": "Tips, informational messages"
+      }
+    },
+    "gradients": {
+      "cosmicBackground": {
+        "css": "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+        "usage": "Main app background"
+      },
+      "goldShimmer": {
+        "css": "linear-gradient(135deg, #ffd700 0%, #ffec80 50%, #ffd700 100%)",
+        "usage": "Gold accents, logo highlights, borders"
+      },
+      "cardGlass": {
+        "css": "linear-gradient(135deg, rgba(48, 43, 99, 0.4) 0%, rgba(36, 36, 62, 0.6) 100%)",
+        "backdrop": "blur(20px) saturate(180%)",
+        "usage": "Frosted glass card backgrounds"
+      },
+      "oracleChat": {
+        "css": "linear-gradient(135deg, #302b63 0%, #24243e 100%)",
+        "usage": "Oracle chat bubble background"
+      },
+      "heroGlow": {
+        "css": "radial-gradient(ellipse at center, rgba(255, 215, 0, 0.15) 0%, transparent 70%)",
+        "usage": "Behind crystal ball on hero sections"
+      },
+      "buttonPrimary": {
+        "css": "linear-gradient(135deg, #ffd700 0%, #ff6b35 100%)",
+        "usage": "Primary action buttons"
+      }
+    }
+  },
+  "darkMode": {
+    "background": "#0f0c29",
+    "surface": "#24243e",
+    "surfaceElevated": "#302b63",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#f5f0eb",
+    "textMuted": "#a09dad",
+    "border": "#1a1a2e",
+    "accent": "#ffd700"
+  },
+  "lightMode": {
+    "background": "#f5f0eb",
+    "surface": "#ffffff",
+    "surfaceElevated": "#e8e4f0",
+    "textPrimary": "#0f0c29",
+    "textSecondary": "#302b63",
+    "textMuted": "#a09dad",
+    "border": "#d4cfe8",
+    "accent": "#302b63"
+  }
+}
