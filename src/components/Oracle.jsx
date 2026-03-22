@@ -39,9 +39,13 @@ function MessageBubble({ message, isUser }) {
           style={isUser ? { borderBottomRightRadius: '0.5rem' } : { borderBottomLeftRadius: '0.5rem' }}
         >
           {/* Render message with formatting */}
-          <div className="text-sm leading-relaxed whitespace-pre-wrap oracle-response">
-            {message.text}
-          </div>
+          <div className="text-sm leading-relaxed whitespace-pre-wrap oracle-response"
+            dangerouslySetInnerHTML={{ 
+              __html: message.text
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-oracle-gold/90">$1</strong>')
+                .replace(/\n/g, '<br/>')
+            }}
+          />
 
           {/* Sources */}
           {message.sources?.length > 0 && (
