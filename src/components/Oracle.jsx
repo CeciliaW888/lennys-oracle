@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, ExternalLink, Loader2 } from 'lucide-react'
-import { askOracle } from '../utils/gemini'
+import { askOracle, cancelOracleRequest } from '../utils/gemini'
 
 const SUGGESTED_QUESTIONS = [
   "How do I know if I have product-market fit?",
@@ -11,6 +11,11 @@ const SUGGESTED_QUESTIONS = [
   "How do growth loops work?",
   "When should a startup pivot?",
 ]
+
+/** @type {number} Min question length */
+const MIN_QUESTION_LENGTH = 3
+/** @type {number} Max question length */
+const MAX_QUESTION_LENGTH = 2000
 
 function MessageBubble({ message, isUser }) {
   return (
@@ -34,7 +39,9 @@ function MessageBubble({ message, isUser }) {
           className={`rounded-xl px-4 py-3 ${
             isUser
               ? 'glass-bright text-oracle-text'
-              : 'bg-oracle-surface border border-oracle-border text-oracle-text'
+              : message.isError
+                ? 'bg-red-950/30 border border-red-500/30 text-oracle-text'
+                : 'bg-oracle-surface border border-oracle-border text-oracle-text'
           }`}
           style={isUser ? { borderBottomRightRadius: '0.375rem' } : { borderBottomLeftRadius: '0.375rem' }}
         >
@@ -99,19 +106,72 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [validationError, setValidationError] = useState('')
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  /** @type {React.MutableRefObject<boolean>} Mounted flag for cleanup */
+  const isMountedRef = useRef(true)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSubmit = async (e) => {
+  // Cancel in-flight requests on unmount
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+      cancelOracleRequest()
+      console.debug('[oracle] component unmounted, cancelled pending requests')
+    }
+  }, [])
+
+  /**
+   * Validate user input before submitting.
+   * @param {string} text - The trimmed question
+   * @returns {string} Error message, or empty string if valid
+   */
+  const validateInput = useCallback((text) => {
+    if (text.length < MIN_QUESTION_LENGTH) {
+      return `Question too short (min ${MIN_QUESTION_LENGTH} characters)`
+    }
+    if (text.length > MAX_QUESTION_LENGTH) {
+      return `Question too long (${text.length}/${MAX_QUESTION_LENGTH} characters)`
+    }
+    return ''
+  }, [])
+
+  /**
+   * Handle input changes with live validation feedback.
+   */
+  const handleInputChange = useCallback((e) => {
+    const value = e.target.value
+    setInput(value)
+
+    // Only show validation for too-long input (don't nag about short while typing)
+    if (value.trim().length > MAX_QUESTION_LENGTH) {
+      setValidationError(`${value.trim().length}/${MAX_QUESTION_LENGTH} characters`)
+    } else {
+      setValidationError('')
+    }
+  }, [])
+
+  const handleSubmit = useCallback(async (e) => {
     e?.preventDefault()
     const question = input.trim()
-    if (!question || isLoading) return
+
+    // Input validation
+    const error = validateInput(question)
+    if (error) {
+      setValidationError(error)
+      return
+    }
+
+    // Prevent double-submit
+    if (isLoading) return
 
     setInput('')
+    setValidationError('')
     setIsLoading(true)
 
     const userMsg = { id: Date.now(), isUser: true, text: question }
@@ -119,14 +179,23 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
 
     onTrackQuestion()
 
+    console.debug('[oracle] submitting question', { length: question.length })
+
     try {
       const response = await askOracle(question)
-      
+
+      // Guard: component may have unmounted during the await
+      if (!isMountedRef.current) {
+        console.debug('[oracle] response arrived after unmount, discarding')
+        return
+      }
+
       const oracleMsg = {
         id: Date.now() + 1,
         isUser: false,
         text: response.answer,
         sources: response.sources || [],
+        isError: !!response.error,
       }
       setMessages(prev => [...prev, oracleMsg])
 
@@ -134,22 +203,37 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
         response.categories.forEach(cat => onTrackExploration(cat))
       }
     } catch (err) {
+      // Guard: component may have unmounted
+      if (!isMountedRef.current) return
+
+      // AbortError means the user navigated away — don't show error
+      if (err.name === 'AbortError') {
+        console.debug('[oracle] request was cancelled')
+        return
+      }
+
+      console.error('[oracle] unexpected error', err)
+
       const errorMsg = {
         id: Date.now() + 1,
         isUser: false,
-        text: "The signal is unclear... I couldn't reach the transcripts. Please check that a Gemini API key is configured and try again.",
+        text: "The signal is unclear... Something unexpected happened.\n\n💡 **What to do:** Check your internet connection and try again. If the problem persists, check the browser console for details.",
         sources: [],
+        isError: true,
       }
       setMessages(prev => [...prev, errorMsg])
+    } finally {
+      if (isMountedRef.current) {
+        setIsLoading(false)
+      }
     }
+  }, [input, isLoading, validateInput, onTrackExploration, onTrackQuestion])
 
-    setIsLoading(false)
-  }
-
-  const handleSuggestion = (q) => {
+  const handleSuggestion = useCallback((q) => {
     setInput(q)
+    setValidationError('')
     setTimeout(() => inputRef.current?.focus(), 100)
-  }
+  }, [])
 
   return (
     <motion.div
@@ -203,7 +287,8 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
                 <button
                   key={i}
                   onClick={() => handleSuggestion(q)}
-                  className="px-3 py-1.5 rounded-lg text-[11px] bg-oracle-surface border border-oracle-border text-oracle-text-dim hover:text-oracle-gold hover:border-oracle-gold/20 transition-all cursor-pointer"
+                  disabled={isLoading}
+                  className="px-3 py-1.5 rounded-lg text-[11px] bg-oracle-surface border border-oracle-border text-oracle-text-dim hover:text-oracle-gold hover:border-oracle-gold/20 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {q}
                 </button>
@@ -219,19 +304,33 @@ export default function Oracle({ onTrackExploration, onTrackQuestion }) {
               ref={inputRef}
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Ask about product management..."
               className="flex-1 bg-transparent px-4 py-3.5 text-oracle-text placeholder:text-oracle-text-muted/50 outline-none text-[13px]"
               disabled={isLoading}
+              maxLength={MAX_QUESTION_LENGTH + 100}
+              aria-invalid={!!validationError}
+              aria-describedby={validationError ? 'input-error' : undefined}
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
               className="p-2 rounded-lg text-oracle-gold disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer hover:bg-oracle-gold/10"
+              aria-label="Submit question"
             >
-              <Send className="w-4 h-4" />
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Send className="w-4 h-4" />
+              )}
             </button>
           </div>
+          {/* Validation error */}
+          {validationError && (
+            <p id="input-error" className="text-red-400/80 text-[10px] mt-1.5 px-4 font-mono">
+              {validationError}
+            </p>
+          )}
         </form>
       </div>
     </motion.div>
